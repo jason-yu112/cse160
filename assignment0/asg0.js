@@ -64,14 +64,14 @@ function handleDrawOperationEvent(event) {
   op = document.getElementById("operation").value;
 
   if (!scalar && (op == "multiply" || op == "divide")) {
-      console.log("NEED SCALAR!");
+      console.log("Need scalar value!");
       event.preventDefault();
       return;
   }
 
   var canvas = document.getElementById('example');
   if (!canvas) {
-      console.log('Failed to retrieve the <canvas> element');
+      console.log('Failed to retrieve <canvas> element');
       event.preventDefault();
       return;
   }
