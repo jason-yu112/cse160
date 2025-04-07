@@ -1,3 +1,8 @@
+/*
+Name: Jason Yu
+Student ID#: 1874080
+Email: jaleyu@ucsc.edu
+*/
 
 function drawVector(v, color) {
   var canvas = document.getElementById('example');
