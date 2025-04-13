@@ -92,15 +92,23 @@ function main() {
 
 /*===================================================== FUNCTIONS ============================================================ */
 
-
+/*
 var g_points = [];  // The array for the position of a mouse press
-var g_colors = [];  // The array to store the color of a point
+//var g_colors = [];  // The array to store the color of a point
 var g_sizes = []; // The array to store the size of the point
+*/
+var g_shapesList = [];
 
 function click(ev) {
   // Convert mouse coordinate to GL
   [x,y] = convertCoordinatesEventToGL(ev);
 
+  let point = new Point();
+  point.position=[x,y];
+  point.color=g_selectedColor.slice();
+  point.size=g_selectedSize;
+  g_shapesList.push(point);
+/*
   // Store the coordinates to g_points array
   g_points.push([x, y]);
 
@@ -109,7 +117,7 @@ function click(ev) {
 
   // Push the selected size of the point
   g_sizes.push(g_selectedSize);
-
+*/
   // Render the selected shape on canvas
   renderAllShapes();
   
@@ -146,8 +154,11 @@ function renderAllShapes() {
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-  var len = g_points.length;
+  //var len = g_points.length;
+  var len = g_shapesList.length;
   for(var i = 0; i < len; i++) {
+    g_shapesList[i].render();
+    /*
     var xy = g_points[i];
     var rgba = g_colors[i];
     var size = g_sizes[i]
@@ -159,9 +170,9 @@ function renderAllShapes() {
     gl.uniform1f(u_Size, size);
     // Draw
     gl.drawArrays(gl.POINTS, 0, 1);
+    */
   }
 } 
-
 
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0]; // DEFAULT COLOR [WHITE]
 let g_selectedSize=5; // DEFAULT SIZE [5]
