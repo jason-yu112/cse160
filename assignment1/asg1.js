@@ -1,4 +1,6 @@
-// ColoredPoint.js (c) 2012 matsuda
+
+
+/*==================================================== INITIALIZATION ========================================== */
 // Vertex shader program
 var VSHADER_SOURCE = `
   attribute vec4 a_Position;
@@ -58,11 +60,15 @@ function connectVariablestoGLSL() {
   }
 }
 
+/*================================================ MAIN FUNCTION ==================================================*/
+
 function main() {
   
   setupWebgl();
 
   connectVariablestoGLSL();
+
+  addActionsForHtmlUI();
 
   // Register function (event handler) to be called on a mouse press
   canvas.onmousedown = click;
@@ -74,15 +80,20 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT);
 }
 
+/*===================================================== FUNCTIONS ============================================================ */
+
+
 var g_points = [];  // The array for the position of a mouse press
 var g_colors = [];  // The array to store the color of a point
 
 function click(ev) {
-
+  // Convert mouse coordinate to GL
   [x,y] = convertCoordinatesEventToGL(ev);
 
   // Store the coordinates to g_points array
   g_points.push([x, y]);
+
+  /*
   // Store the coordinates to g_points array
   if (x >= 0.0 && y >= 0.0) {      // First quadrant
     g_colors.push([1.0, 0.0, 0.0, 1.0]);  // Red
@@ -91,9 +102,14 @@ function click(ev) {
   } else {                         // Others
     g_colors.push([1.0, 1.0, 1.0, 1.0]);  // White
   }
+  */
+  // Push the selected color to html
+  g_colors.push(g_selectedColor);
 
+  // Render the selected shape on canvas
   renderAllShapes();
 }
+
 
 function convertCoordinatesEventToGL(ev) {
   var x = ev.clientX; // x coordinate of a mouse pointer
@@ -105,6 +121,7 @@ function convertCoordinatesEventToGL(ev) {
 
   return ([x, y]);
 }
+
 
 function renderAllShapes() {
   // Clear <canvas>
@@ -123,3 +140,19 @@ function renderAllShapes() {
     gl.drawArrays(gl.POINTS, 0, 1);
   }
 } 
+
+let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
+
+
+// Set up actions for the HTML UI elements
+function addActionsForHtmlUI() {
+  // Button Events (Shape Type)
+  document.getElementById('green').onclick = function () { g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
+  document.getElementById('red').onclick = function () { g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
+  document.getElementById('redSlide').addEventListener('mouseup', function () { g_selectedColor[0] = this.value / 100; });
+  document.getElementById('greenSlide').addEventListener('mouseup', function () { g_selectedColor[1] = this.value / 100; });
+  document.getElementById('blueSlide').addEventListener('mouseup', function () { g_selectedColor[2] = this.value / 100; });
+
+  // Size Slider Events
+  document.getElementById('sizeSlide').addEventListener('mouseup', function () { g_selectedSize = this.value; });
+}
