@@ -216,12 +216,7 @@ let g_selectedSeg = 10; // DEFAULT SEGMENT [10]
 // Set up actions for the HTML UI elements
 function addActionsForHtmlUI() {
   // Button Events (Shape Type)
-  /*//document.getElementById('green').onclick = function () { g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
-  //document.getElementById('red').onclick = function () { g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
-  document.getElementById('point').onclick = function() {g_selectedType=POINT};
-  document.getElementById('triangle').onclick = function() {g_selectedType=TRIANGLE};
-  document.getElementById('circle').onclick = function() {g_selectedType=CIRCLE};
-  document.getElementById('segments').addEventListener('mouseup', function() {g_selectedSeg = Number(this.value);});*/
+  document.getElementById("Picture").addEventListener("click", drawPicture);
   document.getElementById('shapeSelect').addEventListener('change', function() {
     let shape = this.value;
     switch (shape) {
