@@ -106,24 +106,34 @@ function click(ev) {
   // Convert mouse coordinate to GL
   [x,y] = convertCoordinatesEventToGL(ev);
 
-  let point = new Point();
+  if (g_selectedType == MOTION) {
+    let lastShape = g_shapesList[g_shapesList.length - 1];
+    if (lastShape instanceof MotionTrailPoint) {
+      lastShape.addMotionTrail(x, y);
+    } else {
+      let trailShape = new MotionTrailPoint();
+      trailShape.addMotionTrail(x, y);
+      g_shapesList.push(trailShape);
+    }
+  } else {
+    //let point = new Point();
+    let point;
+    if (g_selectedType == POINT) {
+      point = new Point();
+    } else if (g_selectedType == TRIANGLE) {
+      point = new Triangle();
+    } else {
+      point = new Circle();
+    }
   point.position=[x,y];
   point.color=g_selectedColor.slice();
   point.size=g_selectedSize;
+  point.segments=g_selectedSeg;
   g_shapesList.push(point);
-/*
-  // Store the coordinates to g_points array
-  g_points.push([x, y]);
-
-  // Push the selected color for slider and button
-  g_colors.push(g_selectedColor.slice());
-
-  // Push the selected size of the point
-  g_sizes.push(g_selectedSize);
-*/
+  }
   // Render the selected shape on canvas
   renderAllShapes();
-  
+}  
   /*
   OUTDATED CODE
   // Store the coordinates to g_points array
@@ -138,7 +148,7 @@ function click(ev) {
   // Push the selected color for button
   g_colors.push(g_selectedColor);
   */
-}
+
 
 
 function convertCoordinatesEventToGL(ev) {
@@ -193,14 +203,42 @@ function sendTextToHTML(text, htmlID) {
   htmlElm.innerHTML = text;
 }
 
+const POINT = 0;
+const TRIANGLE = 1;
+const CIRCLE = 2;
+const MOTION = 3;
+
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0]; // DEFAULT COLOR [WHITE]
 let g_selectedSize=5; // DEFAULT SIZE [5]
+let g_selectedType = POINT; // DEFAULT SHAPE [POINT]
+let g_selectedSeg = 10; // DEFAULT SEGMENT [10]
 
 // Set up actions for the HTML UI elements
 function addActionsForHtmlUI() {
   // Button Events (Shape Type)
-  document.getElementById('green').onclick = function () { g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
-  document.getElementById('red').onclick = function () { g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
+  /*//document.getElementById('green').onclick = function () { g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
+  //document.getElementById('red').onclick = function () { g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
+  document.getElementById('point').onclick = function() {g_selectedType=POINT};
+  document.getElementById('triangle').onclick = function() {g_selectedType=TRIANGLE};
+  document.getElementById('circle').onclick = function() {g_selectedType=CIRCLE};
+  document.getElementById('segments').addEventListener('mouseup', function() {g_selectedSeg = Number(this.value);});*/
+  document.getElementById('shapeSelect').addEventListener('change', function() {
+    let shape = this.value;
+    switch (shape) {
+      case "point":
+        g_selectedType = POINT;
+        break;
+      case "triangle":
+        g_selectedType = TRIANGLE;
+        break;
+      case "circle":
+        g_selectedType = CIRCLE;
+        break;
+      case "motion":
+        g_selectedType = MOTION;
+        break;
+    }
+  });
   document.getElementById('clear').onclick = function() {
     // Clear the user's shapes list
     g_shapesList = []; 

@@ -12,31 +12,43 @@
     <p id="Options" style="color: black; font-size: 16px;">Painting Options:</p>
     <p id="numdot" style="color: black; font-size: 16px;">Awaiting User Input...</p>
     
-    <!-- Add buttons for color selection -->
-    <button id="green">Green</button>
-    <button id="red">Red</button>
     <button type="button" id="clear">Clear</button>
-    
+
+    <select id="shapeSelect">
+      <option value="point">Point</option>
+      <option value="triangle">Triangle</option>
+      <option value="circle">Circle</option>
+      <option value="motion">Motion</option>
+    </select>
+
     <p>
       Red <input type="range" min="0" max="100" value="100" class="slider" id="redSlide">
     </p>
 
     <p>
-      Green <input type="range" min="0" max="100" value="0" class="slider" id="greenSlide">
+      Green <input type="range" min="0" max="100" value="100" class="slider" id="greenSlide">
     </p>
 
     <p>
-      Blue <input type="range" min="0" max="100" value="0" class="slider" id="blueSlide">
+      Blue <input type="range" min="0" max="100" value="100" class="slider" id="blueSlide">
     </p>
       
     <p>
       Size <input type="range" min="5" max="30" value="5" class="slider" id="sizeSlide">
     </p>
 
+    <p>
+      Segments <input type="range" min="3" max="20" value="10" class="slider" id="segments">
+    </p>
+    
+
     <script src="lib/webgl-utils.js"></script>
     <script src="lib/webgl-debug.js"></script>
     <script src="lib/cuon-utils.js"></script>
     <script src="asg1.js"></script>
     <script src="Points.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Circle.js"></script>
+    <script src="MotionTrail.js"></script>
   </body>
 </html>
