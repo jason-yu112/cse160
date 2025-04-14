@@ -2,6 +2,15 @@
   <head>
     <meta charset="utf-8" />
     <title>Assignment 1: Painting</title>
+
+    <style>
+      #myImage {
+          width: 500px;
+          height: 500px;
+          display: none;
+      }
+  </style>
+
   </head>
 
   <body onload="main()">
@@ -13,14 +22,14 @@
     <p id="Options" style="color: black; font-size: 16px;">Painting Options:</p>
     <button type="button" id="clear">Clear</button>
 
-    <p><button type="button" id="Picture">Picture</button></p>
-
     <select id="shapeSelect">
       <option value="point">Point</option>
       <option value="triangle">Triangle</option>
       <option value="circle">Circle</option>
       <option value="motion">Motion</option>
     </select>
+
+    <p><button type="button" id="Picture">Picture</button></p>
 
     <p>
       Red <input type="range" min="0" max="100" value="100" class="slider" id="redSlide">
@@ -42,6 +51,21 @@
       Segments <input type="range" min="3" max="20" value="10" class="slider" id="segments">
     </p>
     
+    <button onclick="toggleImage()">Toggle Reference Image</button>
+    <img id="myImage" src="picture.JPG" alt="Reference">
+
+    <script>
+        function toggleImage() {
+            var img = document.getElementById("myImage");
+            
+            // Toggle the display style between block (visible) and none (hidden)
+            if (img.style.display === "none") {
+                img.style.display = "block";
+            } else {
+                img.style.display = "none";
+            }
+        }
+    </script>
 
     <script src="lib/webgl-utils.js"></script>
     <script src="lib/webgl-debug.js"></script>
