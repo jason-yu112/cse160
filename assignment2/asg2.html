@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Assignment 2: BLOCKY ANIMAL</title>
+  </head>
+
+  <body onload="main()" bgcolor="lightblue">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+
+
+    <p id="numdot">XXX</p>
+
+    <p>
+    Camera Angle <input type="range" min="-90" max="90" value="5" class="slider" id="angleSlide">
+
+    <p>
+    Vertical Camera Angle <input type="range" min="-90" max="90" value="5" class="slider" id="verticalSlide">
+
+    <p>
+    Body Position (2nd level joint) <input type="range" min="-90" max="90" value="5" class="slider" id="bodyAngle">
+
+    <p>
+    Shift Click:
+     <button type="button" id="shiftAnimationON">ON</button>
+     <button type="button" id="shiftAnimationOFF">OFF</button>
+
+    <p>
+    Snake Animation:
+     <button type="button" id="snakeAnimationON">ON</button>
+     <button type="button" id="snakeAnimationOFF">OFF</button>
+
+    <p>
+    Jaw Angle <input type="range" min="-60" max="0" value="0" class="slider" id="jawAngleSlide">
+
+  
+    <hr>
+    <div style="margin-top: 20px; font-family: Arial, sans-serif;">
+        <p>Name: Jason Yu</p>
+        <p>Email: jaleyu@ucsc.edu</p>
+        <p>Assignment: 2</p>
+        <ul style="list-style-type:disc;">
+          <li>Shift click Animation opens the jaw and increases the length of the tongue.</li>
+          <li>Animation (default) wags tail back and forth.</li>
+          <li>To reset animation, press the respective OFF button.</li>
+          <li>To rotate object manually, click and drag with mouse as needed.</li>
+          <li>To adjust camera zoom, please scroll up or down to zoom in or out respectively.</li>
+          <li>Both animations can be played at the same time with each animation independent of each other.</li>
+        </ul>
+        <p>3d render of a snake. <br> Snake has 3-part joint at the base, and a joint in the jaw.</p>
+    </div>
+    <hr>
+
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script src="lib/cuon-utils.js"></script>
+    <script src="lib/cuon-matrix-cse160.js"></script>
+    <script src="Point.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Circle.js"></script>
+    <script src="Cube.js"></script>
+    <script src="Ellipsoid.js"></script>
+    <script src="asg2.js"></script>
+  </body>
+</html>
