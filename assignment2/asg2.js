@@ -1,3 +1,9 @@
+/*
+  Created by Jason Yu
+  CSE 160 Assignment 2: Blocky Animal
+*/
+
+
 var VSHADER_SOURCE = `
   attribute vec4 a_Position;
   uniform mat4 u_ModelMatrix; 
