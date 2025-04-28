@@ -7,6 +7,7 @@ To demonstrate the capabilities, we want to create a simple 3D animal using basi
 - asg2.html : responsible for presenting the visual interface for user to view the animal.    
 - asg2.js : responsible for implementing the library for animal representation.  
 - Circle.js : provides the function for drawing a circle based upon triangles.    
+- Cube.js : provides the function for drawing a cube based upon triangles.  
 - Points.js : provides the function for drawing a square based upon the textbook.  
 - Triangle.js : provides the function for drawing a triangle based upon the video tutorial.  
 - Ellipsoid.js : provides the function for drawing a ellipsoid based upon triangles.  
