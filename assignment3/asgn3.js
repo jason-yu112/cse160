@@ -87,9 +87,6 @@ let g_head2Angle = 0;
 let g_head1YAngle = -5;
 let g_head2YAngle = 5;
 
-
-
-
 function setupWebGL(){
     // Retrieve <canvas> element
     canvas = document.getElementById('webgl');

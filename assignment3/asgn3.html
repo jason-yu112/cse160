@@ -21,8 +21,15 @@
   
     <p>
     Camera Angle <input type="range" min="0" max="90" value="5" class="slider" id="angleSlide">
- 
-        <div id="student info">
+
+    <p>
+      <b>Music Controls:</b><br>
+      <button id="toggleMusic">Play / Pause Music</button>
+      <button id="volumeUp">Volume +</button>
+      <button id="volumeDown">Volume -</button>
+    </p>
+    
+    <div id="student info">
       <p>Name: Jason Yu</p>
       <p>Student ID: 1874080</p>
       <p>Email: jaleyu@ucsc.edu</p>
@@ -36,6 +43,46 @@
       <p>
       </p>
     </div>
+    
+    <audio id="bg-music" src="ambience.mp3" loop></audio>
+
+    <script>
+  const music = document.getElementById("bg-music");
+
+  // Set initial volume
+  music.volume = 0.5;
+
+  // Ensure playback starts on first interaction
+  window.addEventListener("click", () => {
+    if (music.paused) {
+      music.play().catch(err => console.warn("Autoplay blocked:", err));
+    }
+  }, { once: true });
+
+  // Music Toggle
+  document.getElementById("toggleMusic").addEventListener("click", () => {
+    if (music.paused) {
+      music.play();
+    } else {
+      music.pause();
+    }
+  });
+
+  // Volume Controls
+  document.getElementById("volumeUp").addEventListener("click", () => {
+    music.volume = Math.min(1.0, music.volume + 0.1);
+    console.log("Volume:", music.volume.toFixed(2));
+  });
+
+  document.getElementById("volumeDown").addEventListener("click", () => {
+    music.volume = Math.max(0.0, music.volume - 0.1);
+    console.log("Volume:", music.volume.toFixed(2));
+  });
+</script>
+
+
+
+
    
     <script src="lib/webgl-utils.js"></script>
     <script src="lib/webgl-debug.js"></script>
