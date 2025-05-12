@@ -1,4 +1,3 @@
-// Blocky Animals.js Benjamin Grinnell
 // Vertex shader program
 var VSHADER_SOURCE =
   `attribute vec4 a_Position;
