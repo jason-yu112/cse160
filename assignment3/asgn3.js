@@ -153,7 +153,7 @@ function initTextures(imgid) {
         // Register the event handler to be called on loading an image
         image.onload = function(){ sendTextureToGl(image,2); };
         // Tell the browser to load an image
-        image.src = 'road2.jpg';
+        image.src = 'gravel.jpg';
         
     }
     else if(imgid ===3){
