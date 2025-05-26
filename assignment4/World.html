@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>CSE160: Assignment 4</title>
+</head>
+
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+    gap: 40px;
+  }
+
+  #webgl {
+    border: 1px solid black;
+  }
+
+  .instructions {
+    max-width: 300px;
+  }
+
+  .sound-controls {
+      margin-top: 20px;
+    }
+</style>
+
+<body onload="setupPage()">
+  <h1>CSE 160: Assignment 4: Lighting</h1>
+
+  <canvas id="webgl" width="650" height="650">
+    Please use a browser that supports "canvas"
+  </canvas>
+
+  <p id="numdot"> Awaiting Calculations... </p>
+
+  <div class="instructions">
+    <b>User Manual</b>:
+    <ul>
+      <li>To Navigate Camera: Drag your mouse cursor over screen or use WASD to navigate. USE QE to pan left/right
+        respectively.</li>
+      <li>Use the respective buttons to control specific features.</li>
+      <li>Applying normalize will give the display of a raining city landscape.</li>
+      <li>Not applying normalize will give you a raining chicken village.</li>
+    </ul>
+  </div>
+  </div>
+
+  <div class="sound-controls">
+        <b>Sound Control:</b><br>
+        <label>Volume:
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+        </label><br>
+        <button onclick="toggleMute()">Toggle Mute</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="soundEffect" loop>
+    <source src="rain.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <p>
+    <button type="button" id="normalOn">Normal On</button>
+    <button type="button" id="normalOff">Normal Off</button>
+  </p>
+
+
+  <p>
+    <button type="button" id="animateOn">Animate On</button>
+    <button type="button" id="animateOff">Animate Off</button>
+  </p>
+
+  <p>
+    <button type="button" id="lightOn">Light On</button>
+    <button type="button" id="lightOff">Light Off</button>
+  </p>
+
+  <p>
+    <button type="button" id="spotlightOn">Spotlight On</button>
+    <button type="button" id="spotlightOff">Spotlight Off</button>
+  </p>
+
+  <p>
+    Light X <input type="range" min="-180" max="950" value="500" class="slider" id="lightSlideX"><br>
+    Light Y <input type="range" min="250" max="950" value="400" class="slider" id="lightSlideY"><br>
+    Light Z <input type="range" min="-1500" max="925" value="400" class="slider" id="lightSlideZ"><br>
+  </p>
+
+  <p>
+    Spotlight X <input type="range" min="-170" max="950" value="600" class="slider" id="spotlightSlideX"><br>
+    Spotlight Y <input type="range" min="250" max="1250" value="1000" class="slider" id="spotlightSlideY"><br>
+    Spotlight Z <input type="range" min="-1500" max="925" value="0" class="slider" id="spotlightSlideZ"><br>
+  </p>
+
+  <p>
+    Light Red <input type="range" min="0" max="255" value="255" class="slider" id="lightSlideRed"><br>
+    Light Green <input type="range" min="0" max="255" value="255" class="slider" id="lightSlideGreen"><br>
+    Light Blue <input type="range" min="0" max="255" value="255" class="slider" id="lightSlideBlue"><br>
+  </p>
+
+  <script src="./lib/webgl-utils.js"></script>
+  <script src="./lib/webgl-debug.js"></script>
+  <script src="./lib/cuon-utils.js"></script>
+  <script src="./lib/cuon-matrix-cse160.js"></script>
+  <script src="Triangle.js"></script>
+  <script src="Circle.js"></script>
+  <script src="Cube.js"></script>
+  <script src="Point.js"></script>
+  <script src="Camera.js"></script>
+  <script src="Rain.js"></script>
+  <script src="Sphere.js"></script>
+  <script src="World.js"></script>
+ <script>
+  function setupPage() {
+    // First, call the game’s main() function (defined in your JS files)
+    if (typeof main === 'function') {
+      main(); // This initializes your game
+    }
+
+    // Then set up sound logic separately
+    const canvas = document.getElementById('webgl');
+    const audio = document.getElementById('soundEffect');
+    const volumeSlider = document.getElementById('volumeSlider');
+
+    let hasStartedAudio = false;
+
+    function playSoundOnce() {
+      if (!hasStartedAudio) {
+        audio.play().catch(e => console.warn('Autoplay blocked until user interaction', e));
+        hasStartedAudio = true;
+      }
+    }
+
+    // Trigger sound only once on first user interaction
+    document.body.addEventListener('click', playSoundOnce, { once: true });
+    document.body.addEventListener('keydown', playSoundOnce, { once: true });
+
+    // Volume control
+    volumeSlider.addEventListener('input', function () {
+      audio.volume = this.value;
+    });
+
+    // Toggle mute
+    window.toggleMute = function () {
+      audio.muted = !audio.muted;
+    };
+  }
+</script>
+</body>
+
+</html>
