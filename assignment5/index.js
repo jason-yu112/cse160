@@ -18,16 +18,6 @@ const textureLoader = new THREE.TextureLoader();
 let startTime = performance.now() / 1000.0;
 let seconds = performance.now() / 1000.0 - startTime;
 
-let sphereXYZ = computeSphereXYZ();
-
-function computeSphereXYZ() {
-    const x = 10 * Math.sin(seconds / 3) - 8;
-    const y = 0.99;
-    const z = 15;
-
-    return { x: x, y: y, z: z };
-}
-
 function main() {
     const canvas = document.querySelector("#c");
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
@@ -49,6 +39,10 @@ function main() {
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xbadbe6, 5, 50);
 
+    // Spotlight and shadows through the use of ChatGPT and Claude livecoding and testing which was very helpful.
+    // Gave chatgpt the following source: 
+    // - https://threejs.org/manual/#en/shadows
+    // - https://dustinpfister.github.io/2018/04/11/threejs-spotlights/
     {
         const spotlight = new THREE.SpotLight(0xe6fffe, 1000, 50, degToRad(40), 0.3);
         spotlight.position.set(-5, 10, 15);
@@ -82,7 +76,7 @@ function main() {
     }
 
     {
-        textureLoader.load("./skybox.jpg", (texture) => {
+        textureLoader.load("./hanger.jpg", (texture) => {
             texture.mapping = THREE.EquirectangularReflectionMapping;
             texture.colorSpace = THREE.SRGBColorSpace;
             scene.background = texture;
@@ -176,7 +170,8 @@ function main() {
     animate_ship();
 
 
-
+    // The shapes represent the cargo being loaded onto the mothership.
+    // Used the following texture for the boxes:
     // https://www.freepik.com/free-vector/realistic-broken-textured-cardboard_23667843.htm#fromView=keyword&page=1&position=12&uuid=e8b36d20-2507-487f-8728-012cc1e77292&query=Crate+Texture
     {
         const geometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
@@ -186,14 +181,14 @@ function main() {
             map: texture,
         });
         const instances = [
-            { x: 5, y: 0, z: 11, rotation: 0 },
-            { x: -5, y: 0, z: 10, rotation: degToRad(15) },
-            { x: 5, y: 0, z: -1.5, rotation: degToRad(50) },
-            { x: -4, y: 0, z: -7, rotation: degToRad(25) },
-            { x: -3.5, y: 0, z: -4, rotation: degToRad(45) },
-            { x: -5.5, y: 0, z: -2, rotation: degToRad(35) },
-            { x: 5, y: 0, z: -6, rotation: degToRad(35) },
-            { x: 6.5, y: 0, z: -7.5, rotation: degToRad(15) },
+            { x: 3, y: 0.1, z: 13, rotation: 0 },
+            { x: -3, y: 0.1, z: 11, rotation: degToRad(20) },
+            { x: 7, y: 0.1, z: -2, rotation: degToRad(57) },
+            { x: -3, y: 0.1, z: -8, rotation: degToRad(56) },
+            { x: -7, y: 0.1, z: -5, rotation: degToRad(45) },
+            { x: -8, y: 0.1, z: -3, rotation: degToRad(15) },
+            { x: 10, y: 0.1, z: -8, rotation: degToRad(90) },
+            { x: 6.7, y: 0.1, z: -9, rotation: degToRad(50) },
         ];
         for (let i = 0; i < instances.length; i++) {
             const { x, y, z, rotation } = instances[i];
@@ -210,14 +205,14 @@ function main() {
         const geometry = new THREE.ConeGeometry(0.2, 0.4, 32);
         const material = new THREE.MeshStandardMaterial({ color: 0xffa500 });
         const instances = [
-            { x: 6, y: 0, z: 11 },
-            { x: -6, y: 0, z: 10 },
-            { x: 6, y: 0, z: -1.5 },
-            { x: -6, y: 0, z: -7 },
-            { x: -4.5, y: 0, z: -4 },
-            { x: -6.5, y: 0, z: -2 },
-            { x: 6, y: 0, z: -6 },
-            { x: 7.5, y: 0, z: -7.5 },
+            { x: 8, y: -0.1, z: 8 },
+            { x: -7.3, y: -0.1, z: 10 },
+            { x: 5, y: -0.1, z: -1.5 },
+            { x: -6.3, y: -0.1, z: -7 },
+            { x: -4.5, y: -0.1, z: -5 },
+            { x: -5.3, y: -0.1, z: -3 },
+            { x: 8, y: -0.1, z: -7 },
+            { x: 5.4, y: -0.1, z: -7.5 },
         ];
         for (let i = 0; i < instances.length; i++) {
             const { x, y, z, rotation } = instances[i];
@@ -233,14 +228,14 @@ function main() {
         const geometry = new THREE.SphereGeometry(0.2, 32, 16);
         const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
         const instances = [
-            { x: 8, y: 0, z: 11 },
-            { x: -8, y: 0, z: 10 },
-            { x: 8, y: 0, z: -1.5 },
-            { x: -8, y: 0, z: -7 },
-            { x: -6.5, y: 0, z: -4 },
-            { x: -8.5, y: 0, z: -2 },
-            { x: 8, y: 0, z: -6 },
-            { x: 9.5, y: 0, z: -7.5 },
+            { x: 9, y: -0.1, z: 10 },
+            { x: -10, y: -0.1, z: 8 },
+            { x: 6, y: -0.1, z: -2 },
+            { x: -7, y: -0.1, z: -8 },
+            { x: -4.5, y: -0.1, z: -5 },
+            { x: -8.5, y: -0.1, z: -3 },
+            { x: 8.3, y: -0.1, z: -9 },
+            { x: 10.1, y: -0.1, z: -8 },
         ];
         for (let i = 0; i < instances.length; i++) {
             const { x, y, z, rotation } = instances[i];
@@ -252,12 +247,12 @@ function main() {
         }
     }
 
-    const geometry = new THREE.SphereGeometry(1, 32, 16);
+    const geometry = new THREE.SphereGeometry(2, 28, 14);
     const material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-    const rollingSphere = new THREE.Mesh(geometry, material);
-    rollingSphere.position.set(sphereXYZ.x, sphereXYZ.y, sphereXYZ.z);
-    scene.add(rollingSphere);
 
+
+    // Implemented Rain using the following tutorial which was modified by ChatGPT to be adpated to this project:
+    // https://dev.to/nordicbeaver/making-rain-animation-with-webgl-shaders-in-threejs-4ic5
     const rainCount = 10000;
     const rainGeometry = new THREE.BufferGeometry();
     const rainPositions = new Float32Array(rainCount * 3);
@@ -308,8 +303,6 @@ function main() {
     }
 
     function animate() {
-        sphereXYZ = computeSphereXYZ();
-        rollingSphere.position.set(sphereXYZ.x, sphereXYZ.y, sphereXYZ.z);
         const positions = rain.geometry.attributes.position.array;
         for (let i = 0; i < rainCount * 3; i += 3) {
             positions[i + 1] -= 0.5;
