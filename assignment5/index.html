@@ -1,0 +1,148 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>CSE 160: Assignment 5</title>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: #4e67ce;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+            color: white;
+        }
+
+        #c {
+            width: 50vw;
+            height: 50vh;
+            display: block;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        /* Fullscreen override */
+        :fullscreen #c,
+        :-webkit-full-screen #c,
+        :-moz-full-screen #c {
+            width: 100vw;
+            height: 100vh;
+
+            .info-panel {
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                max-width: 300px;
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-family: sans-serif;
+            }
+
+            .info-panel h2,
+            .info-panel h3 {
+                margin-top: 0;
+            }
+
+            .info-panel ul {
+                padding-left: 20px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="c"></canvas>
+
+    <!-- Background audio element -->
+    <audio id="bg-audio" loop>
+        <source src="sound.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Audio control buttons -->
+    <div class="controls">
+        <button onclick="playAudio()">Play</button>
+        <button onclick="pauseAudio()">Pause</button>
+        <button onclick="toggleMute()">Mute/Unmute</button>
+    </div>
+
+    <div class="info-panel">
+        <h2>Project Description</h2>
+        <p>
+            This assignment demonstrates the use of Three.js to create an interactive 3D scene featuring a Spaceship Hanger for 
+            a fictional space station. The scene includes a rotating camera, a spaceship model, and a background audio track to enhance the immersive experience.
+            Users can toggle fullscreen mode and control background audio playback.
+        </p>
+
+        <h3>Controls</h3>
+        <ul>
+            <li>Press <strong>'F'</strong> to toggle fullscreen mode.</li>
+            <li>Use the buttons below to <strong>play, pause, or mute</strong> background sound.</li>
+            <li>Click and drag your mouse in order to rotate the camera</li></li>
+        </ul>
+    </div>
+
+
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://threejs.org/build/three.module.js",
+            "three/addons/": "https://threejs.org/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module" src="index.js"></script>
+
+    <script type="module">
+        const canvas = document.getElementById('c');
+
+        window.addEventListener('keydown', (event) => {
+            if (event.key.toLowerCase() === 'f') {
+                if (!document.fullscreenElement) {
+                    canvas.requestFullscreen().catch(err => {
+                        console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const bgAudio = document.getElementById('bg-audio');
+
+        function playAudio() {
+            bgAudio.play();
+        }
+
+        function pauseAudio() {
+            bgAudio.pause();
+        }
+
+        function toggleMute() {
+            bgAudio.muted = !bgAudio.muted;
+        }
+    </script>
+</body>
+
+</html>
